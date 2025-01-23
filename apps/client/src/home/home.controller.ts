@@ -16,9 +16,4 @@ export class HomeController {
     const tr = await this.i18n.translate('welcome', { lang });
     return this.homeService.getHomeData();
   }
-
-  @Get('products')
-  async getHomeProducts() {
-    return this.homeService.getHomeProducts();
-  }
 }

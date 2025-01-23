@@ -141,16 +141,4 @@ export class HomeService {
       testimonials,
     };
   }
-
-  async getHomeProducts() {
-    const products = await fetch('https://api.tiqets.com/v2/products', {
-      method: 'GET',
-      headers: {
-        Authorization: 'Token bNsp032u1ma9rJt17ZdODpCHtWmj67jB',
-      },
-    });
-    const data = await products.json();
-
-    return data;
-  }
 }
