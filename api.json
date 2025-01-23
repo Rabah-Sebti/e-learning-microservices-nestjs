@@ -1,0 +1,707 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/register": {
+      "post": {
+        "operationId": "AuthController_signUp",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SignUpDTO" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/login": {
+      "post": {
+        "operationId": "AuthController_signIn",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SignInDTO" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/profile": {
+      "get": {
+        "operationId": "UserController_getProfile",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/domains": {
+      "get": {
+        "operationId": "UserController_getDomains",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/user/related_courses": {
+      "get": {
+        "operationId": "UserController_getRelatedCourses",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/account/avatar": {
+      "post": {
+        "operationId": "UserController_updatePicture",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/profile/update": {
+      "patch": {
+        "operationId": "UserController_updateProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateProfileDTO" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/account/update": {
+      "patch": {
+        "operationId": "UserController_updateAccount",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateAccountDTO" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/reset_password": {
+      "post": {
+        "operationId": "UserController_resetPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ResetPasswordDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      }
+    },
+    "/api/course_categories": {
+      "post": {
+        "operationId": "CategoryController_createCateory",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateCategoryDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "CategoryController_getCategories",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/course_categories/{id}": {
+      "post": {
+        "operationId": "CategoryController_updateCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateCategoryDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      }
+    },
+    "/api/banners": {
+      "post": {
+        "operationId": "BannerController_createBanner",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateBannerDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "BannerController_getBanners",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/course/review": {
+      "post": {
+        "operationId": "ReviewController_createReview",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateReviewDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "ReviewController_getReviews",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/courses": {
+      "post": {
+        "operationId": "CourseController_createCourse",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateCourseDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "CourseController_getCourses",
+        "parameters": [
+          {
+            "name": "offset",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/courses/{id}": {
+      "get": {
+        "operationId": "CourseController_getOneCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } }
+      },
+      "patch": {
+        "operationId": "CourseController_updateCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/updateCourseDTO" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/user/courses": {
+      "get": {
+        "operationId": "CourseController_getUserCourses",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/courses/{id}/watch": {
+      "get": {
+        "operationId": "CourseController_getCourseWatch",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/courses/{id}/reviews": {
+      "get": {
+        "operationId": "CourseController_getCourseReviews",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/courses/{id}/quiz": {
+      "get": {
+        "operationId": "CourseController_getCourseQuiz",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/course_sub_categories": {
+      "post": {
+        "operationId": "SubCategoryController_createSubCategory",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateSubCategoryDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "SubCategoryController_getSubCategories",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/lessons": {
+      "post": {
+        "operationId": "LessonController_createLesson",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateLessonDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "LessonController_getLessons",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/lessons/upload/{id}": {
+      "post": {
+        "operationId": "LessonController_uploadFile",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "201": { "description": "" } }
+      }
+    },
+    "/api/courses/{courseId}/watch_lesson/{lessonId}": {
+      "post": {
+        "operationId": "LessonController_getLessonUrl",
+        "parameters": [
+          {
+            "name": "courseId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "lessonId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/videos/{token}": {
+      "get": {
+        "operationId": "LessonController_streamVideo",
+        "parameters": [
+          {
+            "name": "token",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/chapters": {
+      "post": {
+        "operationId": "ChapterController_createChapter",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateChapterDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "ChapterController_getChapters",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/instructors": {
+      "post": {
+        "operationId": "InstructorController_createInstructor",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateInstructorDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "InstructorController_getInstructors",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/home": {
+      "get": {
+        "operationId": "HomeController_getHomeData",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/contact": {
+      "post": {
+        "operationId": "ContactController_createContact",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateContactDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "ContactController_getContact",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/about": {
+      "get": {
+        "operationId": "AboutController_getAboutData",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/dashboard/courses/{id}/quiz": {
+      "post": {
+        "operationId": "QuizController_createQuiz",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateQuizDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "QuizController_getQuiz",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/quiz/submit": {
+      "post": {
+        "operationId": "QuizController_submitQuiz",
+        "parameters": [
+          {
+            "name": "quiz_id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SubmitQuizDTO" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/questions": {
+      "post": {
+        "operationId": "QuestionController_createQuestion",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateQuestionDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "QuestionController_getQuestions",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/choices": {
+      "post": {
+        "operationId": "ChoiceController_createChoice",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateChoiceDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "ChoiceController_getChoices",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/course_orders/store": {
+      "post": {
+        "operationId": "CourseOrdersController_storeCourses",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/StoreOrdersDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      }
+    },
+    "/api/course_orders": {
+      "get": {
+        "operationId": "CourseOrdersController_getOrders",
+        "parameters": [
+          {
+            "name": "status",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/course_orders/{id}": {
+      "get": {
+        "operationId": "CourseOrdersController_getOneOrder",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/product_categories": {
+      "post": {
+        "operationId": "ProductCategoryController_createCategory",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProductCategoryDTO"
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "ProductCategoryController_getCategories",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/product-sub-categories": {
+      "post": {
+        "operationId": "ProductSubCategoryController_createCategory",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProductSubCategoryDTO"
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "ProductSubCategoryController_getCategories",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/api/products": {
+      "post": {
+        "operationId": "ProductController_createProduct",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateProductDTO" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } }
+      },
+      "get": {
+        "operationId": "ProductController_getProducts",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    }
+  },
+  "info": {
+    "title": "Cats example",
+    "description": "The cats API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [{ "name": "cats", "description": "" }],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "SignUpDTO": { "type": "object", "properties": {} },
+      "SignInDTO": { "type": "object", "properties": {} },
+      "UpdateProfileDTO": { "type": "object", "properties": {} },
+      "UpdateAccountDTO": { "type": "object", "properties": {} },
+      "ResetPasswordDTO": { "type": "object", "properties": {} },
+      "CreateCategoryDto": { "type": "object", "properties": {} },
+      "UpdateCategoryDTO": { "type": "object", "properties": {} },
+      "CreateBannerDTO": { "type": "object", "properties": {} },
+      "CreateReviewDTO": { "type": "object", "properties": {} },
+      "CreateCourseDTO": { "type": "object", "properties": {} },
+      "updateCourseDTO": { "type": "object", "properties": {} },
+      "CreateSubCategoryDTO": { "type": "object", "properties": {} },
+      "CreateLessonDTO": { "type": "object", "properties": {} },
+      "CreateChapterDTO": { "type": "object", "properties": {} },
+      "CreateInstructorDTO": { "type": "object", "properties": {} },
+      "CreateContactDto": { "type": "object", "properties": {} },
+      "CreateQuizDTO": { "type": "object", "properties": {} },
+      "SubmitQuizDTO": { "type": "object", "properties": {} },
+      "CreateQuestionDTO": { "type": "object", "properties": {} },
+      "CreateChoiceDTO": { "type": "object", "properties": {} },
+      "StoreOrdersDTO": { "type": "object", "properties": {} },
+      "CreateProductCategoryDTO": { "type": "object", "properties": {} },
+      "CreateProductSubCategoryDTO": { "type": "object", "properties": {} },
+      "CreateProductDTO": { "type": "object", "properties": {} }
+    }
+  }
+}

@@ -1,0 +1,328 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int              @id @default(autoincrement())
+  created_at   DateTime         @default(now())
+  updated_at   DateTime         @updatedAt
+  email        String           @unique
+  username     String
+  full_name    String
+  password     String
+  diploma      String
+  domain       String
+  reviews      Review[]
+  courses      Course[]         @relation("UserCourses")
+  Course_Order Course_Order[]
+  media_url    String?
+  dob          DateTime?        @db.Date
+  state        String?
+  address      String?
+  mobile       String?
+  bio          String?
+  progress     LessonProgress[]
+
+  @@map("users")
+}
+
+model Admin {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  email      String   @unique
+  full_name  String
+  password   String
+  media_url  String?
+
+  @@map("admins")
+}
+
+model Instructor {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  email      String   @unique
+  image_url  String?
+  name       String
+  dob        String
+  mobile     String
+  expert     String
+  detail     String
+  courses    Course[] @relation("InstructorCourses")
+
+  @@map("instructors")
+}
+
+model Category {
+  id             Int           @id @default(autoincrement())
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
+  title          String
+  image_url      String?
+  sub_categories SubCategory[]
+  Course         Course[]
+
+  @@map("categories")
+}
+
+model SubCategory {
+  id          Int      @id @default(autoincrement())
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  title       String
+  category_id Int
+  category    Category @relation(fields: [category_id], references: [id])
+  Course      Course[]
+
+  @@map("sub_categories")
+}
+
+model Banner {
+  id          Int      @id @default(autoincrement())
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  title       String
+  description String
+  image_url   String?
+
+  @@map("banners")
+}
+
+model Review {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  rate       Int
+  review     String
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  course_id  Int      @default(1)
+  course     Course   @relation(fields: [course_id], references: [id])
+
+  @@map("reviews")
+}
+
+model Course {
+  id             Int      @id @default(autoincrement())
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  title          String
+  detail         String
+  price          Int
+  discount_price Int
+  language       String
+  duration       String
+  certified      Boolean
+  featured       Boolean
+  reviews        Review[]
+
+  course_category Int
+  category        Category @relation(fields: [course_category], references: [id])
+
+  course_sub_category Int
+  sub_category        SubCategory      @relation(fields: [course_sub_category], references: [id])
+  lessons             Lesson[]
+  chapters            Chapter[]
+  course_instructors  Instructor[]     @relation("InstructorCourses")
+  course_users        User[]           @relation("UserCourses")
+  course_order        Course_Order[]   @relation("course_order")
+  quiz                Quiz?
+  media_url           String?
+  progress            LessonProgress[]
+
+  @@map("courses")
+}
+
+model Lesson {
+  id         Int              @id @default(autoincrement())
+  created_at DateTime         @default(now())
+  updated_at DateTime         @updatedAt
+  title      String
+  duration   String
+  watched    Boolean          @default(false)
+  course_id  Int
+  course     Course           @relation(fields: [course_id], references: [id])
+  media_url  String?
+  chapter_id Int
+  chapter    Chapter          @relation(fields: [chapter_id], references: [id])
+  progress   LessonProgress[]
+
+  @@map("lessons")
+}
+
+model Chapter {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  title      String
+  duration   String
+  course_id  Int
+  course     Course   @relation(fields: [course_id], references: [id])
+  lesson     Lesson[]
+
+  @@map("chapters")
+}
+
+model Contact {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  email      String
+  address    String
+  phones     String
+  facebook   String?
+  instagram  String?
+  whatsapp   String?
+  youtube    String?
+
+  @@map("contacts")
+}
+
+model Quiz {
+  id          Int        @id @default(autoincrement())
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
+  description String
+  min_rate    Int
+  course      Course     @relation(fields: [courseId], references: [id])
+  courseId    Int        @unique
+  questions   Question[]
+
+  @@map("quizes")
+}
+
+model Question {
+  id          Int      @id @default(autoincrement())
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  description String
+  quiz_id     Int
+  quiz        Quiz     @relation(fields: [quiz_id], references: [id])
+  choices     Choice[]
+
+  @@map("questions")
+}
+
+model Choice {
+  id          Int      @id @default(autoincrement())
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  description String
+  isCorrect   Boolean  @default(false)
+  question_id Int
+  question    Question @relation(fields: [question_id], references: [id])
+
+  @@map("choices")
+}
+
+model Course_Order {
+  id            Int           @id @default(autoincrement())
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+  uuid          String        @default(uuid())
+  status        Status        @default(ORDER_IN_PROCESS)
+  courses       Course[]      @relation("course_order")
+  paymant_id    Int
+  paymant_order PaymantCourse @relation(fields: [paymant_id], references: [id])
+  user_id       Int
+  user          User          @relation(fields: [user_id], references: [id])
+  media_url     String?
+
+  @@map("courseOrders")
+}
+
+enum Status {
+  ORDER_IN_PROCESS
+  ORDER_APPROVED
+  ORDER_DECLINED
+}
+
+model PaymantCourse {
+  id           Int            @id @default(autoincrement())
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
+  price        Int
+  method       Method
+  Course_Order Course_Order[]
+
+  @@map("paymantCourses")
+}
+
+enum Method {
+  payment_baridi
+  payment_pca
+  payment_online
+  payment_on_site
+}
+
+model Product {
+  id              Int                  @id @default(autoincrement())
+  created_at      DateTime             @default(now())
+  updated_at      DateTime             @updatedAt
+  name            String
+  description     String
+  detail          String
+  price           Int
+  discount_price  Int
+  badge           String?
+  image           String?
+  available       Boolean
+  media_urls      String[]
+  category_id     Int
+  category        ProductCategories    @relation(fields: [category_id], references: [id])
+  sub_category_id Int
+  sub_category    ProductSubCategories @relation(fields: [sub_category_id], references: [id])
+
+  @@map("products")
+}
+
+model ProductCategories {
+  id             Int                    @id @default(autoincrement())
+  created_at     DateTime               @default(now())
+  updated_at     DateTime               @updatedAt
+  title          String
+  sub_categories ProductSubCategories[]
+  products       Product[]
+
+  @@map("product_categories")
+}
+
+model ProductSubCategories {
+  id          Int               @id @default(autoincrement())
+  created_at  DateTime          @default(now())
+  updated_at  DateTime          @updatedAt
+  title       String
+  category_id Int
+  category    ProductCategories @relation(fields: [category_id], references: [id])
+  products    Product[]
+
+  @@map("product_sub_categories")
+}
+
+model LessonProgress {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  course     Course   @relation(fields: [courseId], references: [id])
+  courseId   Int
+  lesson     Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId   Int
+  watched    Boolean  @default(false)
+
+  @@unique([userId, courseId, lessonId]) // Ensure unique watch records
+}

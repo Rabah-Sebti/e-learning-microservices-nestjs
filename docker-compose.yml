@@ -1,0 +1,47 @@
+services:
+  client:
+    build:
+      context: .
+      dockerfile: ./apps/client/Dockerfile
+      target: development
+    command: npm run start:dev client
+    env_file:
+      - ./apps/client/.env
+    depends_on:
+      - postgres
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3333:3333'
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: ./apps/dashboard/Dockerfile
+      target: development
+    command: npm run start:dev dashboard
+    env_file:
+      - ./apps/dashboard/.env
+    depends_on:
+      - postgres
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3000:3000'
+
+  postgres:
+    image: postgres:16.2
+    restart: always
+    ports:
+      - '5434:5432'
+    environment:
+      POSTGRES_USER: rabah19000
+      POSTGRES_PASSWORD: 123456Aa
+      POSTGRES_DB: nest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
